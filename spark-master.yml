@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spark-master-service
+  labels:
+    app: spark
+    role: master
+spec:
+  type: NodePort
+  ports:
+  - port: 7077
+    name: spark-master
+    targetPort: 7077
+    nodePort: 30000
+  - port: 8080
+    name: spark-master-webui
+    targetPort: 8080
+    nodePort: 30001
+  selector:
+    app: spark
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-master
+  labels:
+    app: spark
+    role: master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark
+      role: master
+  template:
+    metadata:
+      labels:
+        app: spark
+        role: master
+    spec:
+      containers:
+      - name: spark-master
+        image: stwunsch/spark:3.0.1
+        command: ["/bin/bash", "-c"]
+        args:
+          - start-master.sh && tail -F /dev/null

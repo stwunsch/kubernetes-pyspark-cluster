@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-worker
+  labels:
+    app: spark
+    role: worker
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: spark
+      role: worker
+  template:
+    metadata:
+      labels:
+        app: spark
+        role: worker
+    spec:
+      containers:
+      - name: spark-worker
+        image: stwunsch/spark:3.0.1
+        env:
+        - name: SPARK_WORKER_CORES
+          value: '1'
+        - name: SPARK_WORKER_MEMORY
+          value: '1g'
+        command: ["/bin/bash", "-c"]
+        args:
+          - start-slave.sh spark://spark-master-service:7077 && tail -F /dev/null
