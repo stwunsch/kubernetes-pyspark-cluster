@@ -10,7 +10,8 @@ os.environ['PYSPARK_PYTHON'] = 'python3'
 
 # The driver is started with the application in the standalone mode of Spark
 hostname = socket.gethostname()
-ip_master, _ = subprocess.Popen(['minikube', 'ip'], stdout=subprocess.PIPE).communicate()
+ip_master, _ = subprocess.Popen(['minikube', 'ip'],
+                                stdout=subprocess.PIPE).communicate()
 spark = SparkSession \
     .builder \
     .appName('Calculate Pi') \
