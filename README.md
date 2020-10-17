@@ -98,6 +98,9 @@ kubectl delete all -l role=worker
 # Delete the master
 kubectl delete all -l role=master
 
-# Delete everything in one go
+# Or delete everything in one go
 kubectl delete all -l app=spark
+
+# Shut down the Kubernetes cluster
+minikube stop
 ```
