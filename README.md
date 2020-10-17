@@ -43,7 +43,7 @@ docker push <your user>/spark:3.0.1
 
 ## Have a look at the Kubernetes configs
 
-The Kubernetes configs are typically written in yaml files, see [`spark-master.yml'](spark-master.yml) and [`spark-worker.yml'](spark-worker.yml). In Kubernetes terminology, each of these files specify a deployment, one for the master and one for the multiple workers.
+The Kubernetes configs are typically written in yaml files, see [`spark-master.yml`](spark-master.yml) and [`spark-worker.yml`](spark-worker.yml). In Kubernetes terminology, each of these files specify a deployment, one for the master and one for the multiple workers.
 
 The deployment of the master contains an additional service, which exposes the Spark cluster to the outside of the Kubernetes cluster. The default Spark port 7077 is accessible from the outside via the port 30000 via the IP of the Kubernetes cluster, which can be found by running `minikube ip`. Further, the service exposes port 30001, which allows us to access the Spark web UI to verify easily the working state of the deployment.
 
